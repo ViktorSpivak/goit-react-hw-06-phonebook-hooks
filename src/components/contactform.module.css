@@ -1,0 +1,11 @@
+.phonebookForm {
+  width: 300px;
+  border: solid 2px black;
+}
+.labelStyle {
+  display: block;
+  margin: 20px;
+}
+button {
+  margin: 10px 20px;
+}
