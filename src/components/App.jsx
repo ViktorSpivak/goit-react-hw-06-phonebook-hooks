@@ -14,6 +14,17 @@ export class Phonebook extends Component {
     ],
     filter: ""
   };
+
+  componentDidUpdate() {
+    localStorage.setItem("contacts", `${JSON.stringify(this.state.contacts)}`);
+  }
+  componentDidMount() {
+    const contactsFromStorage = JSON.parse(localStorage.getItem("contacts"));
+    contactsFromStorage && this.setState({ contacts: contactsFromStorage });
+  }
+  componentWillUnmount() {
+    localStorage.clear();
+  }
   handleFindOverlap = newName =>
     this.state.contacts.some(contact =>
       contact.name
