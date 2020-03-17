@@ -2,7 +2,7 @@
   "name": "goit-react-hw-03-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ViktorSpivak.github.io/goit-react-hw-03-phonebook",
+  "homepage": "https://viktorspivak.github.io/goit-react-hw-03-phonebook/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.1",
@@ -10,7 +10,6 @@
     "gh-pages": "^2.2.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-phone-number-input": "^3.0.21",
     "react-scripts": "3.4.0",
     "uuid": "^7.0.2"
   },

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import style from "./contactform.module.css";
 import { v4 as uuidv4 } from "uuid";
-import { isValidPhoneNumber } from "react-phone-number-input";
+
 export class ContactForm extends Component {
   state = {
     name: "",
@@ -10,10 +10,32 @@ export class ContactForm extends Component {
   };
   nameFormId = uuidv4();
   numberFormId = uuidv4();
+  numberValidation = value => {
+    const lastSymbolAdd = value.split("").pop();
+    const isNumberValid = value.length < 10 && Number(lastSymbolAdd);
+    const isDeletePush = value.length < this.state.number.length;
+    if (isDeletePush) {
+      this.setState({ number: value });
+    } else {
+      if (isNumberValid || isNumberValid === 0) {
+        const phoneNumLength = value.length;
+        if (phoneNumLength === 4 || phoneNumLength === 7) {
+          let x = value.split("");
+          x.splice(phoneNumLength - 1, 0, "-");
+          x = x.join("");
+          value = x;
+        }
+        this.setState({ number: value });
+      }
+    }
+  };
   handleChange = e => {
-    const { name, value } = e.target;
-
-    this.setState({ [name]: value });
+    let { name, value } = e.target;
+    if (name === "number") {
+      this.numberValidation(value);
+    } else {
+      this.setState({ [name]: value });
+    }
   };
   clearSetState() {
     this.setState({
@@ -29,11 +51,7 @@ export class ContactForm extends Component {
       this.clearSetState();
       return;
     }
-    if (!isValidPhoneNumber(number)) {
-      alert("Wrong number, use format +12133734253 (11 numbers");
-      this.clearSetState();
-      return;
-    }
+
     const newContact = { id: uuidv4(), name, number };
     this.props.onCheckIn(newContact);
     this.clearSetState();
@@ -62,7 +80,7 @@ export class ContactForm extends Component {
             onChange={this.handleChange}
             name="number"
             id={this.numberFormId}
-          />
+          ></input>
         </label>
         <button type="submit">Add contact</button>
       </form>
