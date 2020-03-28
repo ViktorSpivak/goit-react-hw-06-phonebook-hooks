@@ -1,0 +1,19 @@
+.alert {
+  position: absolute;
+  left: 50%;
+}
+.enter {
+  transform: translateX(100vw);
+}
+.enterActive {
+  transform: translateX(0);
+  transition: transform 1500ms ease-out;
+}
+.exit {
+  transform: translateX(0);
+}
+.exitActive {
+  transform: translateX(100vw);
+
+  transition: transform 1500ms ease-in;
+}
