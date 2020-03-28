@@ -3,7 +3,7 @@
   margin: 0 auto;
 }
 .enter {
-  transform: translateX(-100%);
+  transform: translateX(-100vw);
 }
 .enterActive {
   transform: translateX(0);
