@@ -2,7 +2,7 @@
   line-height: 51px;
 }
 .enter {
-  transform: translateX(-100%);
+  transform: translateX(-100vw);
 }
 .enterActive {
   transform: translateX(0);
@@ -12,7 +12,7 @@
   transform: translateX(0);
 }
 .exitActive {
-  transform: translateX(-100%);
+  transform: translateX(-100vw);
 
   transition: transform 250ms;
 }
