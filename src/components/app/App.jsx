@@ -22,6 +22,7 @@ export class Phonebook extends Component {
     localStorage.setItem("contacts", `${JSON.stringify(this.state.contacts)}`);
   }
   componentDidMount() {
+    this.setState({ isAnimation: true });
     const contactsFromStorage = JSON.parse(localStorage.getItem("contacts"));
     contactsFromStorage && this.setState({ contacts: contactsFromStorage });
   }
