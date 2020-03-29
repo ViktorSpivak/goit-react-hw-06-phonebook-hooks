@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import ContactForm from "../contactform/ContactForm";
 import Filter from "../filtr/Filter";
 import ContactList from "../contactlist/ContactList";
