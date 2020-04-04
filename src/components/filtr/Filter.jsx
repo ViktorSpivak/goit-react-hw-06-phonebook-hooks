@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as phoneActions from "../../redux/phoneActions";
+import * as phoneActions from "../../reduxElem/phoneActions";
 import PropTypes from "prop-types";
 import style from "./filter.module.css";
 
@@ -26,13 +26,13 @@ class Filter extends Component {
   }
 }
 Filter.protoTypes = {
-  onFindContact: PropTypes.func.isRequired
+  onFindContact: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   contacts: state.contacts,
-  filter: state.filter
+  filter: state.filter,
 });
-const mapDispatchToProps = dispatch => ({
-  onChangeFilter: ev => dispatch(phoneActions.changeFilter(ev.target.value))
+const mapDispatchToProps = (dispatch) => ({
+  onChangeFilter: (ev) => dispatch(phoneActions.changeFilter(ev.target.value)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as phoneActions from "../../redux/phoneActions";
+import * as phoneActions from "../../reduxElem/phoneActions";
 import PropTypes from "prop-types";
 
 import { Alert } from "react-bootstrap";
@@ -13,10 +13,10 @@ export class ContactForm extends Component {
   state = {
     name: "",
     number: "",
-    isExist: false
+    isExist: false,
   };
 
-  numberValidation = value => {
+  numberValidation = (value) => {
     const lastSymbolAdd = value.split("").pop();
     const isNumberValid = value.length < 10 && Number(lastSymbolAdd);
     const isDeletePush = value.length < this.state.number.length;
@@ -35,7 +35,7 @@ export class ContactForm extends Component {
       }
     }
   };
-  handleChange = e => {
+  handleChange = (e) => {
     let { name, value } = e.target;
     if (name === "number") {
       this.numberValidation(value);
@@ -46,17 +46,17 @@ export class ContactForm extends Component {
   clearSetState() {
     this.setState({
       name: "",
-      number: ""
+      number: "",
     });
   }
-  handleFindOverlap = newName =>
-    this.props.contacts.some(contact =>
+  handleFindOverlap = (newName) =>
+    this.props.contacts.some((contact) =>
       contact.name
         .toLowerCase()
         .split(" ")
-        .some(name => name === newName.toLowerCase())
+        .some((name) => name === newName.toLowerCase())
     );
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { name, number } = this.state;
     if (this.handleFindOverlap(name)) {
@@ -118,12 +118,12 @@ export class ContactForm extends Component {
 }
 ContactForm.protoTypes = {
   onFindOverlap: PropTypes.func.isRequired,
-  onCheckIn: PropTypes.func.isRequired
+  onCheckIn: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
-  contacts: state.contacts
+const mapStateToProps = (state) => ({
+  contacts: state.contacts,
 });
-const mapDispatchToProps = dispatch => ({
-  onRecordAdd: newRecord => dispatch(phoneActions.recordAdd(newRecord))
+const mapDispatchToProps = (dispatch) => ({
+  onRecordAdd: (newRecord) => dispatch(phoneActions.recordAdd(newRecord)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

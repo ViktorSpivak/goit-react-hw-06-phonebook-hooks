@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import * as phoneActions from "../../redux/phoneActions";
+import * as phoneActions from "../../reduxElem/phoneActions";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { ListGroup, Button, Row, Col } from "react-bootstrap";
@@ -10,11 +10,11 @@ import { connect } from "react-redux";
 class ContactList extends Component {
   handleFindContacts = () => {
     if (this.props.filter) {
-      return this.props.contacts.filter(contact =>
+      return this.props.contacts.filter((contact) =>
         contact.name
           .toLowerCase()
           .split(" ")
-          .some(name => name.startsWith(this.props.filter.toLowerCase()))
+          .some((name) => name.startsWith(this.props.filter.toLowerCase()))
       );
     } else {
       return this.props.contacts;
@@ -58,13 +58,13 @@ class ContactList extends Component {
 
 ContactList.protoTypes = {
   onShowFindRes: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   contacts: state.contacts,
-  filter: state.filter
+  filter: state.filter,
 });
-const mapDispatchToProps = dispatch => ({
-  onRecordRemove: ev => dispatch(phoneActions.recordRemove(ev.target.id))
+const mapDispatchToProps = (dispatch) => ({
+  onRecordRemove: (ev) => dispatch(phoneActions.recordRemove(ev.target.id)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
