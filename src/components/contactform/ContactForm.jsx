@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as phoneActions from "../../redux/phoneActions";
 import PropTypes from "prop-types";
 
 import { Alert } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
-import style from "./contactform.module.css";
+import style from "./contactForm.module.css";
 import styleAlert from "./alert.module.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -47,17 +49,24 @@ export class ContactForm extends Component {
       number: ""
     });
   }
+  handleFindOverlap = newName =>
+    this.props.contacts.some(contact =>
+      contact.name
+        .toLowerCase()
+        .split(" ")
+        .some(name => name === newName.toLowerCase())
+    );
   handleSubmit = e => {
     e.preventDefault();
     const { name, number } = this.state;
-    if (this.props.onFindOverlap(name)) {
+    if (this.handleFindOverlap(name)) {
       this.setState({ isExist: true });
       this.clearSetState();
       return;
     }
 
     const newContact = { id: uuidv4(), name, number };
-    name && number && this.props.onCheckIn(newContact);
+    name && number && this.props.onRecordAdd(newContact);
     this.clearSetState();
   };
   render() {
@@ -78,7 +87,7 @@ export class ContactForm extends Component {
           </Alert>
         </CSSTransition>
 
-        <form onSubmit={this.handleSubmit} className={style.phonebookForm}>
+        <form onSubmit={this.handleSubmit} className={style.phoneBookForm}>
           <label htmlFor="nameForm" className={style.labelStyle}>
             Name
             <br />
@@ -111,4 +120,10 @@ ContactForm.protoTypes = {
   onFindOverlap: PropTypes.func.isRequired,
   onCheckIn: PropTypes.func.isRequired
 };
-export default ContactForm;
+const mapStateToProps = state => ({
+  contacts: state.contacts
+});
+const mapDispatchToProps = dispatch => ({
+  onRecordAdd: newRecord => dispatch(phoneActions.recordAdd(newRecord))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
