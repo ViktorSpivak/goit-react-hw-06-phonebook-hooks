@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as phoneActions from "../reduxElem/phoneActions";
+import * as phoneActions from "../../redux/phoneActions";
 import PropTypes from "prop-types";
 
 import { Alert } from "react-bootstrap";

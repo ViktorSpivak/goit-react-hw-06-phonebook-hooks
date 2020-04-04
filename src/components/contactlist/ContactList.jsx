@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import * as phoneActions from "../reduxElem/phoneActions";
+import * as phoneActions from "../../redux/phoneActions";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { ListGroup, Button, Row, Col } from "react-bootstrap";
