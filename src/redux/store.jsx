@@ -1,11 +1,11 @@
-import { createStore, combineReducers } from "redux";
-import { devToolsEnhancer } from "redux-devtools-extension";
+import { configureStore } from "@reduxjs/toolkit";
 import * as phoneReducer from "./phoneReducer";
 
-const rootReducers = combineReducers({
-  contacts: phoneReducer.contactsReducer,
-  filter: phoneReducer.filterReducer
+const store = configureStore({
+  reducer: {
+    contacts: phoneReducer.contactsReducer,
+    filter: phoneReducer.filterReducer,
+  },
 });
-const store = createStore(rootReducers, devToolsEnhancer());
 
 export default store;

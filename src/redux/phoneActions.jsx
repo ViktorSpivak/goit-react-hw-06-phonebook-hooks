@@ -1,13 +1,6 @@
 import { actionType } from "./phoneConstants";
-export const recordAdd = value => ({
-  type: actionType.ADD,
-  payload: value
-});
-export const recordRemove = value => ({
-  type: actionType.REMOVE,
-  payload: value
-});
-export const changeFilter = value => ({
-  type: actionType.CHANGE,
-  payload: value
-});
+import { createAction } from "@reduxjs/toolkit";
+
+export const recordAdd = createAction(actionType.ADD);
+export const recordRemove = createAction(actionType.REMOVE);
+export const changeFilter = createAction(actionType.CHANGE);
