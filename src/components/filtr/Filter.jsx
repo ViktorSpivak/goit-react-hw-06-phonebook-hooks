@@ -7,7 +7,7 @@ import style from "./filter.module.css";
 class Filter extends Component {
   render() {
     return (
-      this.props.contacts.length > 0 && (
+      this.props.contacts.length && (
         <div>
           <h2>Contacts</h2>
           <label htmlFor="findForm" className={style.labelStyle}>
