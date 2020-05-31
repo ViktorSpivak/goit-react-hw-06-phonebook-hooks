@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import * as phoneActions from "../../redux/phoneActions";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -6,54 +6,100 @@ import { ListGroup, Button, Row, Col } from "react-bootstrap";
 import style from "./contactList.module.css";
 import { connect } from "react-redux";
 
-class ContactList extends Component {
-  handleFindContacts = () => {
-    if (this.props.filter) {
-      return this.props.contacts.filter((contact) =>
+const ContactList = ({ contacts, filter, onRecordRemove }) => {
+  const handleFindContacts = () => {
+    if (filter) {
+      return contacts.filter((contact) =>
         contact.name
           .toLowerCase()
           .split(" ")
-          .some((name) => name.startsWith(this.props.filter.toLowerCase()))
+          .some((name) => name.startsWith(filter.toLowerCase()))
       );
     } else {
-      return this.props.contacts;
+      return contacts;
     }
   };
+  const searchList = handleFindContacts();
+  return (
+    <div>
+      <ListGroup>
+        <TransitionGroup className="todo-list">
+          {searchList.map(({ name, number, id }) => (
+            <CSSTransition key={id} timeout={250} classNames={style}>
+              <ListGroup.Item>
+                <Row>
+                  <Col className={style.todo}>{name}</Col>
+                  <Col sm="auto" className={style.todo}>
+                    {number}
+                  </Col>
+                  <Col sm="2">
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      id={id}
+                      onClick={onRecordRemove}
+                    >
+                      &times;
+                    </Button>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      </ListGroup>
+    </div>
+  );
+};
 
-  render() {
-    const searchList = this.handleFindContacts();
-    return (
-      <div>
-        <ListGroup>
-          <TransitionGroup className="todo-list">
-            {searchList.map(({ name, number, id }) => (
-              <CSSTransition key={id} timeout={250} classNames={style}>
-                <ListGroup.Item>
-                  <Row>
-                    <Col className={style.todo}>{name}</Col>
-                    <Col sm="auto" className={style.todo}>
-                      {number}
-                    </Col>
-                    <Col sm="2">
-                      <Button
-                        variant="danger"
-                        size="sm"
-                        id={id}
-                        onClick={this.props.onRecordRemove}
-                      >
-                        &times;
-                      </Button>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </ListGroup>
-      </div>
-    );
-  }
-}
+// class ContactList extends Component {
+//   handleFindContacts = () => {
+//     if (this.props.filter) {
+//       return this.props.contacts.filter((contact) =>
+//         contact.name
+//           .toLowerCase()
+//           .split(" ")
+//           .some((name) => name.startsWith(this.props.filter.toLowerCase()))
+//       );
+//     } else {
+//       return this.props.contacts;
+//     }
+//   };
+
+//   render() {
+//     const searchList = this.handleFindContacts();
+//     return (
+//       <div>
+//         <ListGroup>
+//           <TransitionGroup className="todo-list">
+//             {searchList.map(({ name, number, id }) => (
+//               <CSSTransition key={id} timeout={250} classNames={style}>
+//                 <ListGroup.Item>
+//                   <Row>
+//                     <Col className={style.todo}>{name}</Col>
+//                     <Col sm="auto" className={style.todo}>
+//                       {number}
+//                     </Col>
+//                     <Col sm="2">
+//                       <Button
+//                         variant="danger"
+//                         size="sm"
+//                         id={id}
+//                         onClick={this.props.onRecordRemove}
+//                       >
+//                         &times;
+//                       </Button>
+//                     </Col>
+//                   </Row>
+//                 </ListGroup.Item>
+//               </CSSTransition>
+//             ))}
+//           </TransitionGroup>
+//         </ListGroup>
+//       </div>
+//     );
+//   }
+// }
 
 ContactList.protoTypes = {
   onShowFindRes: PropTypes.func.isRequired,
